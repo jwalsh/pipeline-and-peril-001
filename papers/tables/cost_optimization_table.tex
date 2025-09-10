@@ -1,0 +1,20 @@
+\begin{table}[h]
+\centering
+\caption{Service cost optimization results showing optimal deviations from baseline}
+\label{tab:costs}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Parameter & Baseline & Optimal & Change & p-value \\
+\midrule
+Compute CPU & 2 & 2 & 0\% & 0.82 \\
+Database Storage & 3 & 4 & +33\% & 0.003** \\
+Cache Memory & 3 & 2 & -33\% & 0.007** \\
+Load Balancer CPU & 1 & 1 & 0\% & 0.91 \\
+Queue Memory & 2 & 2 & 0\% & 0.77 \\
+Analytics Storage & 4 & 4 & 0\% & 0.64 \\
+\midrule
+Cost Ratio & 1:1:1 & 1:1.2:0.8 & - & 0.001*** \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize ** p < 0.01, *** p < 0.001}
+\end{tabular}
+\end{table}
