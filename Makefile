@@ -131,6 +131,24 @@ paper:
 		echo "$(CYAN)📝 Markdown version: $(PRESENTATIONS_DIR)/paper-game-balance-through-simulation.md$(RESET)"; \
 	fi
 
+# Generate comprehensive system documentation PDF
+system-doc:
+	@echo "$(BLUE)📚 Generating system documentation PDF...$(RESET)"
+	@if command -v emacs >/dev/null 2>&1; then \
+		$(EMACS) --batch \
+			--eval "(require 'org)" \
+			--eval "(setq org-confirm-babel-evaluate nil)" \
+			--eval "(find-file \"$(PRESENTATIONS_DIR)/comprehensive-system-documentation.org\")" \
+			--eval "(org-latex-export-to-pdf)" 2>/dev/null; \
+		if [ -f "$(PRESENTATIONS_DIR)/comprehensive-system-documentation.pdf" ]; then \
+			echo "$(GREEN)✅ System documentation PDF generated$(RESET)"; \
+		else \
+			echo "$(YELLOW)⚠️  PDF generation requires LaTeX$(RESET)"; \
+		fi; \
+	else \
+		echo "$(YELLOW)⚠️  Emacs not available for org-mode export$(RESET)"; \
+	fi
+
 # Build documentation
 docs:
 	@echo "$(BLUE)📚 Building documentation...$(RESET)"
