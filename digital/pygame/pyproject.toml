@@ -5,9 +5,16 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "attrs>=25.3.0",
+    "dataclasses-json>=0.6.7",
     "fastapi>=0.116.1",
+    "loguru>=0.7.3",
     "numpy>=2.3.3",
+    "pydantic[email]>=2.11.7",
     "pygame>=2.6.1",
     "pytest>=8.4.2",
     "requests>=2.32.5",
+    "rich>=14.1.0",
+    "structlog>=25.4.0",
+    "typer>=0.17.4",
 ]
