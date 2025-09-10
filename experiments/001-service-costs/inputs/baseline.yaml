@@ -1,0 +1,49 @@
+# Baseline configuration for service costs experiment
+# These are the default costs from the game design
+
+service_costs:
+  compute:
+    cpu: 2
+    memory: 2
+    storage: 1
+    capacity: 5
+  database:
+    cpu: 1
+    memory: 2
+    storage: 3
+    capacity: 3
+  cache:
+    cpu: 1
+    memory: 3
+    storage: 1
+    capacity: 8
+  queue:
+    cpu: 1
+    memory: 1
+    storage: 2
+    capacity: 6
+  load_balancer:
+    cpu: 2
+    memory: 1
+    storage: 1
+    capacity: 10
+  api_gateway:
+    cpu: 1
+    memory: 1
+    storage: 1
+    capacity: 7
+
+simulation:
+  games: 1000
+  players: 4
+  strategy: balanced
+  grid_width: 8
+  grid_height: 6
+  max_rounds: 20
+  victory_threshold: 0.8
+
+metadata:
+  experiment: "001-service-costs"
+  variant: "baseline"
+  description: "Original service costs from game design"
+  hypothesis: "These costs should produce 10-15 round games with balanced outcomes"
