@@ -1,0 +1,144 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{9}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{}, \showDOI{}, and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showDOI}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showDOI #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showDOI      \undefined \def \showDOI       #1{#1}\fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Adams and Dormans(2012)]%
+        {adams2012game}
+\bibfield{author}{\bibinfo{person}{Ernest Adams} {and} \bibinfo{person}{Joris
+  Dormans}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Game Mechanics: Advanced Game Design}}.
+\newblock \bibinfo{publisher}{New Riders}.
+\newblock
+
+
+\bibitem[Knuth(1984)]%
+        {knuth1984literate}
+\bibfield{author}{\bibinfo{person}{Donald~E Knuth}.}
+  \bibinfo{year}{1984}\natexlab{}.
+\newblock \showarticletitle{Literate Programming}.
+\newblock \bibinfo{journal}{\emph{Comput. J.}} \bibinfo{volume}{27},
+  \bibinfo{number}{2} (\bibinfo{year}{1984}), \bibinfo{pages}{97--111}.
+\newblock
+
+
+\bibitem[P{\'e}rez and Granger(2007)]%
+        {perez2007ipython}
+\bibfield{author}{\bibinfo{person}{Fernando P{\'e}rez} {and}
+  \bibinfo{person}{Brian~E Granger}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{IPython: A System for Interactive Scientific
+  Computing}.
+\newblock \bibinfo{journal}{\emph{Computing in Science \& Engineering}}
+  \bibinfo{volume}{9}, \bibinfo{number}{3} (\bibinfo{year}{2007}),
+  \bibinfo{pages}{21--29}.
+\newblock
+
+
+\bibitem[Schreiber(2010)]%
+        {schreiber2010game}
+\bibfield{author}{\bibinfo{person}{Ian Schreiber}.}
+  \bibinfo{year}{2010}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Game Balance Concepts: A Continued
+  Education Course}}.
+\newblock \bibinfo{publisher}{Self-published}.
+\newblock
+\urldef\tempurl%
+\url{https://gamebalanceconcepts.wordpress.com}
+\showURL{%
+\tempurl}
+
+
+\bibitem[Schulte et~al\mbox{.}(2012)]%
+        {schulte2012multi}
+\bibfield{author}{\bibinfo{person}{Eric Schulte}, \bibinfo{person}{Dan
+  Davison}, \bibinfo{person}{Thomas Dye}, {and} \bibinfo{person}{Carsten
+  Dominik}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{A Multi-Language Computing Environment for Literate
+  Programming and Reproducible Research}.
+\newblock \bibinfo{journal}{\emph{Journal of Statistical Software}}
+  \bibinfo{volume}{46}, \bibinfo{number}{3} (\bibinfo{year}{2012}),
+  \bibinfo{pages}{1--24}.
+\newblock
+
+
+\bibitem[Sirlin(2009)]%
+        {sirlin2009balancing}
+\bibfield{author}{\bibinfo{person}{David Sirlin}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Balancing Multiplayer Competitive Games}. In
+  \bibinfo{booktitle}{\emph{Game Developers Conference}}. GDC.
+\newblock
+
+
+\bibitem[Summerville et~al\mbox{.}(2018)]%
+        {summerville2018procedural}
+\bibfield{author}{\bibinfo{person}{Adam Summerville}, \bibinfo{person}{Sam
+  Snodgrass}, \bibinfo{person}{Matthew Guzdial}, \bibinfo{person}{Christoffer
+  Holmg{\aa}rd}, \bibinfo{person}{Amy~K Hoover}, \bibinfo{person}{Aaron
+  Isaksen}, \bibinfo{person}{Andy Nealen}, {and} \bibinfo{person}{Julian
+  Togelius}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Procedural Content Generation via Machine Learning
+  (PCGML)}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Games}}
+  \bibinfo{volume}{10}, \bibinfo{number}{3} (\bibinfo{year}{2018}),
+  \bibinfo{pages}{257--270}.
+\newblock
+
+
+\bibitem[Togelius et~al\mbox{.}(2011)]%
+        {togelius2011search}
+\bibfield{author}{\bibinfo{person}{Julian Togelius},
+  \bibinfo{person}{Georgios~N Yannakakis}, \bibinfo{person}{Kenneth~O Stanley},
+  {and} \bibinfo{person}{Cameron Browne}.} \bibinfo{year}{2011}\natexlab{}.
+\newblock \showarticletitle{Search-based Procedural Content Generation: A
+  Taxonomy and Survey}.
+\newblock \bibinfo{journal}{\emph{IEEE Transactions on Computational
+  Intelligence and AI in Games}} \bibinfo{volume}{3}, \bibinfo{number}{3}
+  (\bibinfo{year}{2011}), \bibinfo{pages}{172--186}.
+\newblock
+
+
+\bibitem[Yannakakis and Togelius(2018)]%
+        {yannakakis2018artificial}
+\bibfield{author}{\bibinfo{person}{Georgios~N Yannakakis} {and}
+  \bibinfo{person}{Julian Togelius}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Artificial Intelligence and Games}}.
+\newblock \bibinfo{publisher}{Springer}.
+\newblock
+
+
+\end{thebibliography}

@@ -240,33 +240,7 @@ Testing 96 cost configurations revealed near-optimal baseline costs:
 
 \subsection{Grid Size Impact (E2)}
 
-Analysis of spatial dynamics across grid dimensions:
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}
-  \begin{axis}[
-    xlabel={Grid Size (hexes)},
-    ylabel={Average Game Length (rounds)},
-    width=\columnwidth,
-    height=5cm,
-    grid=major,
-    legend pos=north west
-  ]
-  \addplot[color=blue,mark=*] coordinates {
-    (24, 8.3) (48, 12.4) (80, 17.8) (120, 23.2)
-  };
-  \addplot[color=red,dashed] coordinates {
-    (24, 10) (48, 10) (80, 10) (120, 10)
-  };
-  \legend{Observed, Target}
-  \end{axis}
-\end{tikzpicture}
-\caption{Relationship between grid size and game length. The 8×6 grid (48 hexes) provides optimal balance.}
-\label{fig:gridsize}
-\end{figure}
-
-The 8×6 configuration achieved the target 10-15 round game length while maintaining sufficient player interaction ($F(3,1996) = 287.3, p < 0.001$).
+Analysis of spatial dynamics across grid dimensions revealed that the 8×6 configuration achieved the target 10-15 round game length while maintaining sufficient player interaction ($F(3,1996) = 287.3, p < 0.001$). The relationship between grid size and game length showed a clear linear progression, with larger grids leading to longer games but reduced player interaction density.
 
 \subsection{Chaos Frequency (E3)}
 
@@ -289,37 +263,7 @@ The 80\% threshold achieved the target 20-30\% cooperative win rate while mainta
 
 \subsection{AI Strategy Performance (E5)}
 
-Tournament results across 3,000 games:
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}
-  \begin{axis}[
-    ybar,
-    xlabel={Strategy},
-    ylabel={Win Rate (\%)},
-    width=\columnwidth,
-    height=5cm,
-    symbolic x coords={Adaptive,Balanced,Economic,Aggressive,Defensive,Chaos},
-    xtick=data,
-    x tick label style={rotate=45,anchor=east},
-    ymin=0,
-    ymax=30,
-    bar width=0.7cm
-  ]
-  \addplot[fill=blue!30] coordinates {
-    (Adaptive,26.3)
-    (Balanced,22.8)
-    (Economic,19.4)
-    (Aggressive,14.7)
-    (Defensive,11.2)
-    (Chaos,5.6)
-  };
-  \end{axis}
-\end{tikzpicture}
-\caption{AI strategy performance comparison. Adaptive strategies significantly outperform fixed strategies ($\chi^2 = 47.3, p < 0.001$).}
-\label{fig:strategies}
-\end{figure}
+Tournament results across 3,000 games showed that adaptive strategies significantly outperformed fixed strategies ($\chi^2 = 47.3, p < 0.001$). The win rates ranged from 26.3\% for adaptive strategies down to 5.6\% for chaos-focused approaches, demonstrating the importance of dynamic decision-making in game AI.
 
 \section{Discussion}
 
