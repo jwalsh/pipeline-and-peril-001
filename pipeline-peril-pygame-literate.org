@@ -1,0 +1,764 @@
+#+TITLE: Pipeline & Peril PyGame Requirements - Literate Master
+#+AUTHOR: Requirements Team
+#+DATE: 2025-09-10
+#+PROPERTY: header-args :mkdirp yes
+
+* Overview
+
+This is a literate programming document that contains all Pipeline & Peril PyGame requirements.
+Execute =org-babel-tangle= (C-c C-v t) to extract all markdown files.
+
+* Quick Setup
+
+#+BEGIN_SRC bash :tangle setup-pygame-requirements.sh :shebang #!/bin/bash
+#!/bin/bash
+# Setup script for Pipeline & Peril PyGame Requirements
+
+echo "Setting up Pipeline & Peril PyGame requirements..."
+
+# Create directory structure
+mkdir -p digital/pygame/{src,tests,scripts,config,data,docs}
+mkdir -p digital/pygame/src/{engine,players,visualization,data,integration}
+
+# Tangle all markdown files from this org document
+# (This would normally be done via org-babel-tangle in Emacs)
+
+echo "Directory structure created!"
+echo "Next steps:"
+echo "1. Run org-babel-tangle on this file to extract all .md files"
+echo "2. Copy the generated files to digital/pygame/docs/"
+echo "3. Start implementation following IMPLEMENTATION-HANDOFF.md"
+#+END_SRC
+
+* Requirements Index
+
+#+BEGIN_SRC markdown :tangle PYGAME-REQUIREMENTS-INDEX.md
+# Pipeline & Peril PyGame Requirements - Deliverables Index
+
+## Deliverables Overview
+
+This index provides quick access to all requirements documentation for the Pipeline & Peril PyGame implementation.
+
+## Core Requirements Documents
+
+### 1. [Complete Requirements Specification](PYGAME-REQUIREMENTS.md)
+- **Purpose**: Comprehensive requirements document
+- **Contents**: 
+  - Stakeholder analysis
+  - Functional and non-functional requirements
+  - Game rules specification
+  - Acceptance criteria
+  - Technical architecture
+  - Testing requirements
+- **Key Sections**:
+  - System Requirements (FR1-FR5)
+  - Game Rules Specification
+  - API Specification
+  - Development Phases
+
+### 2. [Implementation Handoff Document](IMPLEMENTATION-HANDOFF.md)
+- **Purpose**: Quick reference for developers
+- **Contents**:
+  - Core game concept summary
+  - Priority implementation list
+  - Critical game rules
+  - Development order
+  - Success criteria
+- **Best For**: Developers starting implementation
+
+### 3. [Structured Data Formats](DATA-FORMATS.md)
+- **Purpose**: Exact data schemas and formats
+- **Contents**:
+  - JSON schemas for game state
+  - Action format specifications
+  - Ollama integration formats
+  - Configuration file examples
+- **Use Cases**:
+  - API development
+  - Database design
+  - External integration
+
+### 4. [Repository Integration Plan](INTEGRATION-PLAN.md)
+- **Purpose**: How to integrate with main project
+- **Contents**:
+  - Recommended directory structure
+  - Version control strategy
+  - CI/CD setup
+  - Shared resources approach
+- **Key Insight**: Place under `digital/pygame/` in main repo
+
+## Quick Reference Tables
+
+### Core Game Parameters
+
+| Parameter | Value |
+|-----------|-------|
+| Grid Size | 8×6 hexes |
+| Max Players | 4 |
+| Service Types | 6 |
+| Resource Types | 3 (CPU, Memory, Storage) |
+| Actions per Turn | 3 |
+| Base Uptime | 100% |
+| Max Entropy | 10 |
+| Victory Threshold | >80% uptime for 10 rounds |
+
+### Development Timeline
+
+| Phase | Duration | Deliverable |
+|-------|----------|-------------|
+| Core Engine | 2 weeks | Game rules working |
+| Autonomous Play | 1 week | AI players functional |
+| Visualization | 1 week | PyGame rendering |
+| Data & Analytics | 1 week | Logging and analysis |
+| Integration | 1 week | API and Ollama support |
+| Testing | 2 weeks | Full test coverage |
+#+END_SRC
+
+* Main Requirements Specification
+
+#+BEGIN_SRC markdown :tangle PYGAME-REQUIREMENTS.md
+# Pipeline & Peril - Digital Playtesting Requirements
+
+## Executive Summary
+
+This document outlines the requirements for a PyGame-based digital version of Pipeline & Peril, designed specifically for rapid playtesting, rules validation, and game balance evaluation. The system will support both autonomous AI-driven gameplay and human interaction, with optional integration to LLM agents via Ollama.
+
+## Project Overview
+
+### Purpose
+Create a digital playtesting environment to:
+- Validate game mechanics and balance
+- Test edge cases and rule interactions
+- Gather statistical data on game outcomes
+- Evaluate different strategies
+- Accelerate iteration on game design
+
+### Scope
+- Core game engine with complete rules implementation
+- Autonomous AI players with configurable strategies
+- Data collection and analytics
+- Optional human player interface
+- Optional LLM agent integration
+
+## System Requirements
+
+### Functional Requirements
+
+#### FR1: Game Engine Core
+- FR1.1: Complete implementation of all game rules
+- FR1.2: Turn-based state machine
+- FR1.3: Dice rolling system (d4, d6, d8, d10, d12, d20)
+- FR1.4: Service placement and connection logic
+- FR1.5: Resource management (CPU, Memory, Storage)
+- FR1.6: Traffic routing and load distribution
+- FR1.7: Cascade failure simulation
+- FR1.8: Chaos event system
+- FR1.9: Win/loss condition checking
+
+#### FR2: Autonomous Play
+- FR2.1: AI players with configurable strategies
+- FR2.2: Default action selection based on game state
+- FR2.3: Automatic dice roll resolution
+- FR2.4: Strategy profiles (aggressive, defensive, balanced)
+- FR2.5: No-human-input game completion
+
+#### FR3: Data Collection
+- FR3.1: Log all game actions and state changes
+- FR3.2: Track metrics (uptime, rounds, failures, resources)
+- FR3.3: Export game data as JSON/CSV
+- FR3.4: Replay functionality from logs
+- FR3.5: Statistical analysis tools
+
+#### FR4: Visualization
+- FR4.1: Board state rendering
+- FR4.2: Service connection visualization
+- FR4.3: Resource tracking display
+- FR4.4: Metrics dashboard
+- FR4.5: Animation for state changes (optional)
+
+#### FR5: Integration Interfaces
+- FR5.1: REST API for external agent control
+- FR5.2: Ollama integration for LLM agents
+- FR5.3: Structured input/output format
+- FR5.4: WebSocket support for real-time play
+- FR5.5: Plugin architecture for custom agents
+
+### Non-Functional Requirements
+
+#### NFR1: Performance
+- NFR1.1: Complete 1000 autonomous games in < 1 hour
+- NFR1.2: < 100ms response time for any action
+- NFR1.3: < 500MB memory usage
+- NFR1.4: Support parallel game execution
+
+#### NFR2: Usability
+- NFR2.1: Single command to run autonomous games
+- NFR2.2: Clear visualization of game state
+- NFR2.3: Helpful error messages
+- NFR2.4: Comprehensive logging
+
+## Game Rules Specification
+
+### Setup Phase
+1. Initialize 8x6 hex grid
+2. Place 3 starting services (1 Compute, 1 Database, 1 Load Balancer)
+3. Each player starts with:
+   - 5 CPU, 5 Memory, 5 Storage
+   - 3 action tokens
+   - Character ability
+4. Set uptime to 100%
+5. Set entropy to 0
+
+### Turn Structure
+
+#### 1. Traffic Phase
+- Roll 2d10 for incoming requests
+- Distribute requests to entry points (Load Balancers/API Gateways)
+- Check for overload conditions
+
+#### 2. Action Phase (3 actions per player)
+Available actions:
+- Build Service (cost varies by type)
+- Create Connection (1 resource)
+- Upgrade Service (2 resources)
+- Debug Service (roll d20, DC based on bug severity)
+- Deploy Redundancy (copy service)
+- Gather Resources (gain 1d6 resources)
+- Use Tool Card
+- Activate Character Ability
+
+#### 3. Resolution Phase
+- Services process requests
+- Check for cascade failures
+- Calculate uptime changes
+- Resolve any triggered events
+
+#### 4. Chaos Phase
+- Roll d8 for chaos event (if entropy > 3)
+- Apply chaos effects
+- Increase entropy by 1 (max 10)
+
+### Service Types and Properties
+
+| Service Type   | CPU | Memory | Storage | Capacity | Special                    |
+|----------------|-----|--------|---------|----------|----------------------------|
+| Compute        |   2 |      2 |       1 |        5 | Process any request        |
+| Database       |   1 |      2 |       3 |        3 | Required for data requests |
+| Cache          |   1 |      3 |       1 |        8 | Speed up connected services|
+| Queue          |   1 |      1 |       2 |        6 | Buffer overflow            |
+| Load Balancer  |   2 |      1 |       1 |       10 | Distribute traffic         |
+| API Gateway    |   1 |      1 |       1 |        7 | External entry point       |
+
+### Victory Conditions
+- **Cooperative**: Maintain >80% uptime for 10 rounds
+- **Competitive**: Highest (uptime × requests handled)
+- **Survival**: Last player with >50% uptime
+
+## Acceptance Criteria
+
+### Core Gameplay
+- [ ] Can complete a full 10-round game without errors
+- [ ] All 6 service types function correctly
+- [ ] Cascade failures propagate properly
+- [ ] Resource costs are deducted correctly
+- [ ] Dice rolls produce expected distributions
+
+### Autonomous Play
+- [ ] AI players complete turns within 1 second
+- [ ] AI makes legal moves only
+- [ ] Different strategies produce different outcomes
+- [ ] Can run 1000 games unattended
+- [ ] Games complete in reasonable time (5-15 rounds)
+
+### Data Collection
+- [ ] Every action is logged with timestamp
+- [ ] Can reconstruct game state from logs
+- [ ] Statistical summaries are accurate
+- [ ] Export formats are valid JSON/CSV
+- [ ] No data loss during long runs
+
+### Integration
+- [ ] REST API responds to all endpoints
+- [ ] Ollama agents can play complete games
+- [ ] Structured output matches specification
+- [ ] WebSocket connections remain stable
+- [ ] External agents receive valid game states
+#+END_SRC
+
+* Data Format Specifications
+
+#+BEGIN_SRC markdown :tangle DATA-FORMATS.md
+# Pipeline & Peril - Structured Data Formats
+
+## Game State Schema
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GameState",
+  "type": "object",
+  "required": ["game_id", "round", "phase", "players", "grid", "metrics"],
+  "properties": {
+    "game_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "round": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 20
+    },
+    "phase": {
+      "type": "string",
+      "enum": ["setup", "traffic", "action", "resolution", "chaos", "end"]
+    },
+    "players": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Player"
+      }
+    },
+    "grid": {
+      "$ref": "#/definitions/Grid"
+    },
+    "metrics": {
+      "$ref": "#/definitions/Metrics"
+    }
+  }
+}
+```
+
+## Action Format
+
+```json
+{
+  "action_type": "build_service",
+  "player_id": 1,
+  "parameters": {
+    "service_type": "cache",
+    "location": {"row": 3, "col": 4}
+  },
+  "dice_rolls": [{"die": "d20", "result": 15}],
+  "timestamp": "2025-09-10T22:45:00Z"
+}
+```
+
+## Ollama Integration Format
+
+### Request
+```json
+{
+  "model": "llama2",
+  "prompt": "You are playing Pipeline & Peril...",
+  "format": {
+    "type": "object",
+    "required": ["action_type", "parameters", "reasoning"],
+    "properties": {
+      "action_type": {"type": "string"},
+      "parameters": {"type": "object"},
+      "reasoning": {"type": "string"}
+    }
+  }
+}
+```
+
+### Response
+```json
+{
+  "action_type": "build_service",
+  "parameters": {
+    "service_type": "cache",
+    "location": {"row": 3, "col": 4}
+  },
+  "reasoning": "Building a cache to improve performance..."
+}
+```
+
+## Service Costs
+
+| Service       | CPU | Memory | Storage | Capacity |
+|---------------|-----|--------|---------|----------|
+| Compute       |   2 |      2 |       1 |        5 |
+| Database      |   1 |      2 |       3 |        3 |
+| Cache         |   1 |      3 |       1 |        8 |
+| Queue         |   1 |      1 |       2 |        6 |
+| Load Balancer |   2 |      1 |       1 |       10 |
+| API Gateway   |   1 |      1 |       1 |        7 |
+
+## Chaos Events
+
+1. **Minor Glitch**: Random service loses 1 capacity
+2. **Network Congestion**: +1 latency all connections
+3. **Memory Leak**: All services need +1 memory
+4. **DDoS Attack**: Roll 2d10 extra traffic
+5. **Database Corruption**: Random DB gets d8 bug
+6. **Cascading Failure**: 2x load on failure cascade
+7. **Security Breach**: API gateways shut down
+8. **The Static Strikes**: Entropy +2, all lose 1 resource
+9. **System Meltdown**: Damage = current entropy
+
+## Configuration Examples
+
+### Strategy Configuration
+```yaml
+name: "Aggressive Expander"
+decision_weights:
+  build_service: 0.4
+  create_connection: 0.25
+  upgrade_service: 0.1
+  debug_service: 0.1
+  gather_resources: 0.1
+  use_tool_card: 0.05
+service_preferences:
+  load_balancer: 3.0
+  compute: 2.0
+  cache: 1.0
+```
+
+### Scenario Configuration
+```yaml
+name: "High Chaos"
+initial_state:
+  starting_entropy: 5
+  starting_resources:
+    cpu: 3
+    memory: 3
+    storage: 3
+modifiers:
+  traffic_multiplier: 1.5
+  chaos_frequency: 2.0
+victory_conditions:
+  rounds: 15
+  minimum_uptime: 70
+```
+#+END_SRC
+
+* Implementation Handoff
+
+#+BEGIN_SRC markdown :tangle IMPLEMENTATION-HANDOFF.md
+# Pipeline & Peril PyGame - Implementation Handoff
+
+## Quick Summary for Implementation Agent
+
+You are tasked with implementing a PyGame version of Pipeline & Peril, a board game about distributed systems. This document provides a quick reference for what needs to be built.
+
+## Core Game Concept
+
+- **Theme**: Players build and maintain distributed systems while fighting entropy
+- **Mechanics**: Dice-based actions on a hexagonal grid
+- **Goal**: Keep system uptime above threshold while handling traffic
+
+## What You're Building
+
+### 1. Game Engine
+- Turn-based game with 4 phases: Traffic → Action → Resolution → Chaos
+- 6 types of services (Compute, Database, Cache, Queue, Load Balancer, API Gateway)
+- 8×6 hexagonal grid for service placement
+- Resource management (CPU, Memory, Storage)
+- Dice system using standard RPG dice (d4, d6, d8, d10, d12, d20)
+
+### 2. Autonomous Play System
+- AI players that can complete games without human input
+- Multiple strategy profiles (aggressive, defensive, balanced)
+- Ability to run thousands of games for statistics
+
+### 3. Data Collection
+- Log every action and state change
+- Export games as JSON/CSV
+- Statistical analysis of outcomes
+- Replay functionality
+
+### 4. Integration Points
+- REST API for external control
+- Ollama integration for LLM agents
+- Structured input/output for AI agents
+
+## Key Implementation Priorities
+
+1. **Start Simple**: Get basic game loop working with random AI
+2. **Rules First**: Implement all game rules before visualization
+3. **Test Everything**: Each rule needs unit tests
+4. **Performance Matters**: Must handle 1000+ games for analysis
+5. **Clean API**: External agents need clear interfaces
+
+## Critical Game Rules to Implement
+
+### Turn Flow
+1. Roll 2d10 for incoming requests
+2. Each player takes 3 actions
+3. Process requests through services
+4. Check for cascade failures
+5. Roll d8 for chaos events (if entropy > 3)
+
+### Victory Conditions
+- Cooperative: >80% uptime for 10 rounds
+- Competitive: Highest (uptime × requests)
+- Last player standing with >50% uptime
+
+## Required Files to Create
+
+1. `digital/pygame/src/engine/game_state.py` - Core state management
+2. `digital/pygame/src/engine/rules_engine.py` - Game rules implementation
+3. `digital/pygame/src/players/ai_player.py` - Autonomous player logic
+4. `digital/pygame/scripts/run_autonomous.py` - Entry point for testing
+5. `digital/pygame/src/integration/ollama_client.py` - LLM integration
+
+## Testing Checklist
+
+- [ ] Can complete full game without errors
+- [ ] AI makes only legal moves
+- [ ] Cascade failures work correctly
+- [ ] Can run 1000 games automatically
+- [ ] Statistics match expected distributions
+- [ ] External API responds correctly
+- [ ] Ollama agents can play
+
+## Example Commands
+
+```bash
+# Run 100 autonomous games
+python scripts/run_autonomous.py --games 100
+
+# Run with specific configuration
+python scripts/run_autonomous.py \
+  --games 50 \
+  --players "aggressive,defensive,balanced,aggressive" \
+  --scenario high_chaos
+
+# Export results
+python scripts/analyze_games.py \
+  --input data/logs/ \
+  --export csv
+```
+
+Good luck with the implementation!
+#+END_SRC
+
+* Integration Plan
+
+#+BEGIN_SRC markdown :tangle INTEGRATION-PLAN.md
+# PyGame Implementation Integration Plan
+
+## Integration with Main Repository
+
+### Recommended Structure
+
+The PyGame version should be integrated into the main `pipeline-and-peril` repository as a subdirectory:
+
+```
+pipeline-and-peril/
+├── README.org                    # Main project README
+├── docs/                        # Physical game documentation
+├── assets/                      # Physical game assets
+├── digital/                     # Digital implementations
+│   ├── pygame/                  # PyGame version
+│   │   ├── README.md
+│   │   ├── requirements.txt
+│   │   ├── src/
+│   │   ├── tests/
+│   │   └── docs/
+│   ├── web/                     # Future web version
+│   └── mobile/                  # Future mobile version
+└── playtesting/
+```
+
+### Why This Structure?
+
+1. **Keeps digital and physical versions together** - Both are part of the same game
+2. **Allows shared resources** - Game rules, balance data, etc.
+3. **Enables cross-validation** - Digital can validate physical rules
+4. **Supports multiple digital platforms** - PyGame, web, mobile
+5. **Maintains clean separation** - Each implementation is independent
+
+### Implementation Steps
+
+1. Create the `digital/pygame/` directory structure
+2. Copy requirements documents to `digital/pygame/docs/`
+3. Set up Python virtual environment in `digital/pygame/`
+4. Begin implementation according to requirements
+
+### Development Workflow
+
+1. **Physical First**: Design decisions start with physical game
+2. **Digital Validation**: PyGame version validates rules
+3. **Rapid Iteration**: Test changes quickly in digital
+4. **Statistical Analysis**: Use digital to gather data
+5. **Physical Update**: Apply validated changes back
+
+### Shared Resources
+
+Create shared directory for both versions:
+
+```
+pipeline-and-peril/
+├── shared/
+│   ├── rules/
+│   │   ├── core_rules.yaml
+│   │   ├── service_stats.yaml
+│   │   └── chaos_events.yaml
+│   └── balance/
+│       ├── cost_tables.yaml
+│       └── difficulty_curves.yaml
+```
+
+### CI/CD Integration
+
+```yaml
+name: PyGame Tests
+on:
+  push:
+    paths:
+      - 'digital/pygame/**'
+      - 'shared/**'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: Install dependencies
+        run: |
+          cd digital/pygame
+          pip install -r requirements.txt
+      - name: Run tests
+        run: |
+          cd digital/pygame
+          pytest tests/
+```
+#+END_SRC
+
+* Extraction Scripts
+
+#+BEGIN_SRC bash :tangle extract-all-requirements.sh :shebang #!/bin/bash
+#!/bin/bash
+# Extract all markdown files to create gist
+
+echo "Extracting Pipeline & Peril PyGame Requirements..."
+
+# Create output directory
+mkdir -p pygame-requirements-gist
+
+# Note: In actual use, these would be tangled from the org file
+# For now, showing what files would be created:
+
+cat << 'EOF' > pygame-requirements-gist/README.md
+# Pipeline & Peril PyGame Requirements
+
+This gist contains all requirements documentation for implementing a PyGame version of Pipeline & Peril for playtesting and rules validation.
+
+## Files Included
+
+1. **PYGAME-REQUIREMENTS-INDEX.md** - Navigation and overview
+2. **PYGAME-REQUIREMENTS.md** - Complete requirements specification
+3. **DATA-FORMATS.md** - JSON schemas and data structures  
+4. **IMPLEMENTATION-HANDOFF.md** - Quick start for developers
+5. **INTEGRATION-PLAN.md** - Repository structure guide
+
+## Quick Start
+
+1. Read IMPLEMENTATION-HANDOFF.md for overview
+2. Check DATA-FORMATS.md for exact schemas
+3. Follow INTEGRATION-PLAN.md for project setup
+4. Use PYGAME-REQUIREMENTS.md for detailed specs
+
+## Purpose
+
+Create a digital version for:
+- Rapid playtesting
+- Rules validation
+- Statistical analysis
+- AI strategy development
+- LLM agent integration (Ollama)
+
+EOF
+
+echo "Files ready for gist creation!"
+echo "To create gist manually:"
+echo "1. Go to https://gist.github.com"
+echo "2. Upload the generated .md files"
+echo "3. Set description: 'Pipeline & Peril - PyGame Implementation Requirements'"
+#+END_SRC
+
+* Create GitHub Gist Script
+
+#+BEGIN_SRC python :tangle create-gist.py :shebang #!/usr/bin/env python3
+#!/usr/bin/env python3
+"""
+Create a GitHub Gist from tangled markdown files
+Note: Requires a GitHub token with gist permissions
+"""
+
+import json
+import subprocess
+import os
+
+def create_gist_json():
+    """Create JSON payload for gist creation"""
+    
+    files = [
+        "PYGAME-REQUIREMENTS-INDEX.md",
+        "PYGAME-REQUIREMENTS.md",
+        "DATA-FORMATS.md",
+        "IMPLEMENTATION-HANDOFF.md",
+        "INTEGRATION-PLAN.md"
+    ]
+    
+    gist_data = {
+        "description": "Pipeline & Peril - PyGame Implementation Requirements",
+        "public": True,
+        "files": {}
+    }
+    
+    for filename in files:
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                gist_data["files"][filename] = {
+                    "content": f.read()
+                }
+    
+    return json.dumps(gist_data, indent=2)
+
+def main():
+    # First, tangle all files from org-mode
+    print("Note: Run org-babel-tangle first to extract markdown files!")
+    
+    # Create gist JSON
+    gist_json = create_gist_json()
+    
+    print("\nGist JSON created. To upload:")
+    print("1. Save your GitHub token in GITHUB_TOKEN env variable")
+    print("2. Run: curl -X POST -H 'Authorization: token $GITHUB_TOKEN' \\")
+    print("        -H 'Accept: application/vnd.github.v3+json' \\")
+    print("        https://api.github.com/gists \\")
+    print("        -d @gist.json")
+    
+    with open("gist.json", "w") as f:
+        f.write(gist_json)
+    
+    print("\nGist payload saved to gist.json")
+
+if __name__ == "__main__":
+    main()
+#+END_SRC
+
+* Summary
+
+This literate document contains all Pipeline & Peril PyGame requirements in markdown format, ready to be:
+
+1. **Tangled** using =C-c C-v t= in Emacs to extract all files
+2. **Uploaded** to GitHub Gist (manually or via API)
+3. **Distributed** as a single org file that generates everything
+
+The benefits of this approach:
+- Single source of truth
+- Easy to maintain and update
+- Can regenerate all files anytime
+- Includes extraction scripts
+- Self-documenting
+
+To use:
+1. Open in Emacs with org-mode
+2. Run =M-x org-babel-tangle= (or =C-c C-v t=)
+3. All markdown files will be created
+4. Upload to gist or distribute as needed
