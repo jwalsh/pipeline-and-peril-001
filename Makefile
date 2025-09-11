@@ -79,20 +79,21 @@ install: .venv
 .venv: $(PYGAME_DIR)/pyproject.toml README.md
 	@echo "$(BLUE)🐍 Setting up virtual environment...$(RESET)"
 	@cd $(PYGAME_DIR) && $(UV) venv
+	@touch $@
 	@echo "$(GREEN)✅ Virtual environment ready$(RESET)"
 
 # Generate README.md from README.org
 README.md: README.org
-	@echo "$(BLUE)📄 Generating README.md from README.org...$(RESET)"
+	@echo "$(BLUE)📄 Generating $@ from $<...$(RESET)"
 	@$(EMACS) --batch \
 		--eval "(require 'org)" \
 		--eval "(require 'ox-md)" \
 		--eval "(setq org-export-with-toc nil)" \
 		--eval "(setq org-export-with-author nil)" \
 		--eval "(setq org-export-with-date nil)" \
-		--eval "(find-file \"README.org\")" \
-		--eval "(org-export-to-file 'md \"README.md\")"
-	@echo "$(GREEN)✅ README.md generated$(RESET)"
+		--eval "(find-file \"$<\")" \
+		--eval "(org-export-to-file 'md \"$@\")"
+	@echo "$(GREEN)✅ $@ generated$(RESET)"
 
 # Run tests
 test:
