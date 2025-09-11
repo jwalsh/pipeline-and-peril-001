@@ -25,7 +25,7 @@ CYAN := \033[0;36m
 RESET := \033[0m
 
 # Default target
-all: setup install test demo
+all: setup install test demo README.md
 	@echo "$(GREEN)✅ Pipeline & Peril ready!$(RESET)"
 	@echo "$(CYAN)📚 Documentation: $(DOCS_DIR)/$(RESET)"
 	@echo "$(YELLOW)🎮 Run demo: make demo$(RESET)"
@@ -39,6 +39,8 @@ help:
 	@echo "  $(GREEN)make all$(RESET)         - Complete setup and installation"
 	@echo "  $(GREEN)make setup$(RESET)       - Extract code from literate source"
 	@echo "  $(GREEN)make install$(RESET)     - Install Python dependencies"
+	@echo "  $(GREEN)make .venv$(RESET)       - Setup virtual environment"
+	@echo "  $(GREEN)make README.md$(RESET)   - Generate README.md from README.org"
 	@echo "  $(GREEN)make test$(RESET)        - Run test suite"
 	@echo "  $(GREEN)make demo$(RESET)        - Run interactive demo"
 	@echo "  $(GREEN)make experiments$(RESET) - Run all balance experiments"
@@ -68,10 +70,29 @@ setup:
 	fi
 
 # Install dependencies
-install:
+install: .venv
 	@echo "$(BLUE)📦 Installing dependencies...$(RESET)"
 	@cd $(PYGAME_DIR) && $(UV) sync
 	@echo "$(GREEN)✅ Dependencies installed$(RESET)"
+
+# Virtual environment setup
+.venv: $(PYGAME_DIR)/pyproject.toml README.md
+	@echo "$(BLUE)🐍 Setting up virtual environment...$(RESET)"
+	@cd $(PYGAME_DIR) && $(UV) venv
+	@echo "$(GREEN)✅ Virtual environment ready$(RESET)"
+
+# Generate README.md from README.org
+README.md: README.org
+	@echo "$(BLUE)📄 Generating README.md from README.org...$(RESET)"
+	@$(EMACS) --batch \
+		--eval "(require 'org)" \
+		--eval "(require 'ox-md)" \
+		--eval "(setq org-export-with-toc nil)" \
+		--eval "(setq org-export-with-author nil)" \
+		--eval "(setq org-export-with-date nil)" \
+		--eval "(find-file \"README.org\")" \
+		--eval "(org-export-to-file 'md \"README.md\")"
+	@echo "$(GREEN)✅ README.md generated$(RESET)"
 
 # Run tests
 test:
@@ -240,4 +261,4 @@ check:
 	@command -v emacs >/dev/null 2>&1 && echo "$(GREEN)✓ Emacs found$(RESET)" || echo "$(YELLOW)⚠ Emacs not found (optional)$(RESET)"
 	@command -v git >/dev/null 2>&1 && echo "$(GREEN)✓ Git found$(RESET)" || echo "$(RED)✗ Git not found$(RESET)"
 
-.PHONY: commit push publish watch lint format benchmark docker-build stats archive check
+.PHONY: commit push publish watch lint format benchmark docker-build stats archive check README.md .venv

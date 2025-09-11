@@ -4,21 +4,17 @@
 #+PROPERTY: header-args :exports both
 #+OPTIONS: toc:t num:t
 
-#+begin_html
-<div align="center">
-
 # 🎮 Pipeline & Peril
 *A Digital Playtesting System for Distributed Systems Board Game*
 
+#+BEGIN_EXPORT html
 [![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
 [![uv](https://img.shields.io/badge/built%20with-uv-blue)](https://github.com/astral-sh/uv)
 [![PyGame](https://img.shields.io/badge/engine-pygame-green)](https://pygame.org)
 [![Pydantic v2](https://img.shields.io/badge/validation-pydantic%20v2-red)](https://pydantic.dev)
 [![Rich](https://img.shields.io/badge/cli-rich-gold)](https://rich.readthedocs.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-</div>
-#+end_html
+#+END_EXPORT
 
 ** 🚀 Quick Start
 
