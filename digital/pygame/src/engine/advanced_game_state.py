@@ -335,7 +335,8 @@ class AdvancedGameState(BaseModel):
     model_config = ConfigDict(
         validate_assignment=True,
         extra='forbid',
-        frozen=False
+        frozen=False,
+        arbitrary_types_allowed=True
     )
     
     game_id: str = Field(default_factory=lambda: str(uuid.uuid4()))

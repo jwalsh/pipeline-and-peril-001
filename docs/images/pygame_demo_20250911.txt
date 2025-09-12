@@ -1,0 +1,71 @@
+Traceback (most recent call last):
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/demo.py", line 27, in <module>
+    from src.engine.advanced_game_state import (
+    ...<2 lines>...
+    )
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/src/engine/advanced_game_state.py", line 333, in <module>
+    class AdvancedGameState(BaseModel):
+    ...<195 lines>...
+            console.print(grid_tree)
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_model_construction.py", line 237, in __new__
+    complete_model_class(
+    ~~~~~~~~~~~~~~~~~~~~^
+        cls,
+        ^^^^
+    ...<3 lines>...
+        create_model_module=_create_model_module,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_model_construction.py", line 597, in complete_model_class
+    schema = gen_schema.generate_schema(cls)
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 711, in generate_schema
+    schema = self._generate_schema_inner(obj)
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 1004, in _generate_schema_inner
+    return self._model_schema(obj)
+           ~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 837, in _model_schema
+    {k: self._generate_md_field_schema(k, v, decorators) for k, v in fields.items()},
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 1206, in _generate_md_field_schema
+    common_field = self._common_field_schema(name, field_info, decorators)
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 1372, in _common_field_schema
+    schema = self._apply_annotations(
+        source_type,
+        annotations + validators_from_decorators,
+    )
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 2297, in _apply_annotations
+    schema = get_inner_schema(source_type)
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_schema_generation_shared.py", line 83, in __call__
+    schema = self._handler(source_type)
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 2279, in inner_handler
+    schema = self._generate_schema_inner(obj)
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 1009, in _generate_schema_inner
+    return self.match_type(obj)
+           ~~~~~~~~~~~~~~~^^^^^
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 1123, in match_type
+    return self._match_generic_type(obj, origin)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 1150, in _match_generic_type
+    return self._list_schema(self._get_first_arg_or_any(obj))
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 372, in _list_schema
+    return core_schema.list_schema(self.generate_schema(items_type))
+                                   ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 711, in generate_schema
+    schema = self._generate_schema_inner(obj)
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 1009, in _generate_schema_inner
+    return self.match_type(obj)
+           ~~~~~~~~~~~~~~~^^^^^
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 1127, in match_type
+    return self._unknown_type_schema(obj)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/Users/jasonwalsh/ghq/github.com/jwalsh/pipeline-and-peril-001/digital/pygame/.venv/lib/python3.13/site-packages/pydantic/_internal/_generate_schema.py", line 639, in _unknown_type_schema
+    raise PydanticSchemaGenerationError(
+    ...<7 lines>...
+    )
+pydantic.errors.PydanticSchemaGenerationError: Unable to generate pydantic-core schema for <class 'src.engine.advanced_game_state.Player'>. Set `arbitrary_types_allowed=True` in the model_config to ignore this error or implement `__get_pydantic_core_schema__` on your type to fully support it.
+
+If you got this error by calling handler(<some type>) within `__get_pydantic_core_schema__` then you likely need to call `handler.generate_schema(<some type>)` since we do not call `__get_pydantic_core_schema__` on `<some type>` otherwise to avoid infinite recursion.
+
+For further information visit https://errors.pydantic.dev/2.11/u/schema-for-unknown-type

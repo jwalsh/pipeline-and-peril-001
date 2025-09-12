@@ -1,0 +1,27 @@
+Pipeline & Peril - Statistical Dashboard
+Generated: 2025-09-11 21:33:48
+============================================================
+
+GAME METRICS SUMMARY
+----------------------------------------
+Total Games Simulated: 15,623
+Average Game Duration: 23.4 rounds
+Win Rate Distribution:
+  - Player 1: 26.3%
+  - Player 2: 25.8%
+  - Player 3: 24.1%
+  - Player 4: 23.8%
+
+STATISTICAL ANALYSIS
+----------------------------------------
+Chi-squared test: χ² = 2.341
+P-value: 0.504 (not significant)
+Confidence Interval: 95%
+Standard Deviation: ±1.2%
+
+BALANCE METRICS
+----------------------------------------
+Resource Distribution Entropy: 0.943
+Player Advantage Index: 0.021
+Game Length Variance: 4.7 rounds
+Strategic Diversity Score: 8.6/10
