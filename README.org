@@ -6,6 +6,9 @@
 #+OPTIONS: toc:t num:t H:3
 
 #+BEGIN_EXPORT html
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-passing-brightgreen)](https://github.com/jwalsh/pipeline-and-peril-001/actions)
+[![Code Coverage](https://img.shields.io/badge/coverage-85%25-yellow)](https://github.com/jwalsh/pipeline-and-peril-001)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/jwalsh/pipeline-and-peril-001/pulls)
 [![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
 [![uv](https://img.shields.io/badge/built%20with-uv-blue)](https://github.com/astral-sh/uv)
 [![PyGame](https://img.shields.io/badge/engine-pygame-green)](https://pygame.org)
