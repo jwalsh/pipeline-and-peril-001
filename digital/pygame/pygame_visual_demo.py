@@ -10,8 +10,8 @@ from datetime import datetime
 pygame.init()
 
 # Constants
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 600
+WINDOW_WIDTH = 1200
+WINDOW_HEIGHT = 800
 FPS = 60
 
 # Colors
@@ -30,8 +30,8 @@ class PipelinePerilGame:
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption("Pipeline & Peril - Game Visualization")
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.Font(None, 36)
-        self.small_font = pygame.font.Font(None, 24)
+        self.font = pygame.font.Font(None, 48)
+        self.small_font = pygame.font.Font(None, 32)
         self.running = True
         
         # Game state
@@ -51,9 +51,9 @@ class PipelinePerilGame:
     def init_services(self):
         """Initialize service nodes"""
         positions = [
-            (200, 150), (400, 150), (600, 150),
-            (200, 300), (400, 300), (600, 300),
-            (200, 450), (400, 450), (600, 450)
+            (300, 200), (600, 200), (900, 200),
+            (300, 400), (600, 400), (900, 400),
+            (300, 600), (600, 600), (900, 600)
         ]
         
         service_types = ["Auth", "DB", "Cache", "Queue", "API", "Web", "Worker", "Storage", "Monitor"]
@@ -104,8 +104,8 @@ class PipelinePerilGame:
                 color = RED
                 
             # Draw node
-            pygame.draw.circle(self.screen, color, (service["x"], service["y"]), 30)
-            pygame.draw.circle(self.screen, WHITE, (service["x"], service["y"]), 30, 3)
+            pygame.draw.circle(self.screen, color, (service["x"], service["y"]), 40)
+            pygame.draw.circle(self.screen, WHITE, (service["x"], service["y"]), 40, 3)
             
             # Draw label
             label = self.small_font.render(service["type"], True, WHITE)
@@ -113,7 +113,7 @@ class PipelinePerilGame:
             self.screen.blit(label, label_rect)
             
             # Draw health bar
-            bar_width = 40
+            bar_width = 60
             bar_height = 4
             bar_x = service["x"] - bar_width // 2
             bar_y = service["y"] + 35
